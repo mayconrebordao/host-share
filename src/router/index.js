@@ -5,24 +5,42 @@ import FilesDownload from "@/components/FilesDownload";
 import FilesUpload  from "@/components/FilesUpload";
 
 Vue.use(Router);
+let basehostname = "Host Share - ";
 
-export default new Router({
+const router = new Router({
   mode: "history",
   routes: [
     {
       path: "/",
       name: "HelloWorld",
-      component: HelloWorld
+      component: HelloWorld,
+      meta: {
+        title: basehostname+"Home"
+      }
     },
     {
       path: "/filesdownload",
       name: "FilesDownload",
-      component: FilesDownload
+      component: FilesDownload,
+      meta: {
+        title: basehostname+"Download de Arquivos"
+      }
     },
     {
       path: "/filesupload",
       name: "FilesUpload",
-      component: FilesUpload
+      component: FilesUpload,
+      meta:{
+        title: basehostname+"Upload de Arquivos"
+      }
     }
   ]
 });
+
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title
+  next()
+})
+
+export default router;

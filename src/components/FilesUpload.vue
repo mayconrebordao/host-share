@@ -38,7 +38,7 @@
 <script>
 export default {
 
-  name: 'File',
+  name: 'Files',
 
   data () {
 	return {
@@ -59,7 +59,7 @@ export default {
         let aux = window.location.href.split('/');
         // console.log(aux[0]);
         let path = aux[2].split(':');
-        this.url = aux[0]+'//'+path[0]+':3000';
+        this.url = aux[0]+'//'+path[0]+':55555';
 
 		let progresso = function(progress){
 			let aux = (process.loaded/ process.total)*100;
@@ -71,7 +71,7 @@ export default {
 			document.getElementById('msg').innerHTML+= '<div class="alert alert-warning alert-dismissible fade show" role="alert"> <strong>Nenhum</strong> arquivos selecionado. <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> ';
 			setTimeout(function() {
 				// body
-			document.getElementById('msg').innerHTML = "";
+				document.getElementById('msg').innerHTML = "";
 			},3000 );
 		}
 		else{
@@ -134,6 +134,8 @@ export default {
 					document.getElementById('msg').innerHTML+= '<div class="alert alert-danger alert-dismissible fade show" role="alert"> <strong>Erro</strong> arquivos não enviados. <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> ';
 					setTimeout(function() {
 						// body
+						document.getElementById('btnsend').removeAttribute('disabled','');
+
 					document.getElementById('msg').innerHTML = "";
 					},3000 );
 

@@ -49,11 +49,11 @@ export default {
     created() {
         this.url = '';
         let aux = window.location.href.split('/');
-        console.log(aux);
+        // console.log(aux);
         let path = aux[2].split(':');
-        this.url = aux[0]+'//'+path[0]+':3000';
+        this.url = aux[0]+'//'+path[0]+':55555';
         // this.show();
-        console.log(this.url);
+        // console.log(this.url);
         this.$http.get(this.url+"/files/list").then(
             response => {
                 // success callback

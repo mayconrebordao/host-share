@@ -1,27 +1,27 @@
 <template>
     <div >
-        <header>
+        <header class="pos-f-t">
 
             <nav class="navbar   navbar-expand-lg navbar-dark bg-dark fixed-top ">
 
-                <router-link to="/" class="navbar-brand">Host Share</router-link>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <router-link to="/" @click.native="closeMenu()" class="navbar-brand">Host Share</router-link>
+                <button id='togglerMenu' class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <router-link class="nav-link" to="/">
+                            <router-link @click.native="closeMenu()" class="nav-link" to="/">
                                 Home<span class="sr-only">(current)</span>
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/filesdownload">
+                            <router-link @click.native="closeMenu()" class="nav-link" to="/filesdownload">
                                 Downloads
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/filesupload">
+                            <router-link @click.native="closeMenu()" class="nav-link" to="/filesupload">
                                 Uploads
                             </router-link>
                         </li>
@@ -86,6 +86,20 @@ export default {
                 // alert(document.getElementsByClassName('mdl-layout__obfuscator')[i]);
             }
             // alert(i)
+        },
+        closeMenu(){
+            // $('#navbarNav').toggle('hide');
+            // $('.navbar-collapse').collapse('hide');
+            // alert('teste')
+            // console.log(', ...args')
+            // $('#togglerMenu').button('click');
+            // setTimeout(function() {
+            //     // body
+
+            // }, 500)
+            document.getElementById('togglerMenu').classList.add('collapsed');
+            document.getElementById('togglerMenu').setAttribute('aria-expanded','false');
+            document.getElementById('navbarNav').classList.remove('show');
         }
     }
 };
