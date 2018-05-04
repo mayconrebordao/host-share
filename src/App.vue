@@ -9,6 +9,7 @@
                     <router-view></router-view>
                 </div>
             </main>
+            <div class="separate"></div>
         <FooterSite/>
     </body>
 </template>
@@ -85,6 +86,10 @@ export default {
 </script>
 
 <style >
+.separate {
+    height: 1em;
+    /* margin-bottom: 20px; */
+}
 .main_content {
     margin-top: 4rem !important;
 }
