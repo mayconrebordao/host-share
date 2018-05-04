@@ -57,3 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+.vscode
+node_modules
+aux
+aux.html
+dist
+r.json

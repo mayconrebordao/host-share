@@ -47,13 +47,28 @@ export default {
 	}
   },
   mouted(){
-  	console.log(this.$route);
+
+		document.addEventListener('beforeunload', this.handler)	
+  	// window.onbeforeunload = this.leaving;
+  	// console.log(this.$route);
 	// document.getElementById('p').setAttribute('hidden', '');
 	// document.getElementById('progress').setAttribute('class', 'hide');
   }
   ,
   methods:{
+  	handler: function (event){
+  		console.log(', ...args')
+  		alert('laave')
+  	},
+  	leaving(){
+  		alert('You leaving page')
+  	},
 	Upload(){
+
+
+
+
+		// window.onbeforeunload = this.leaving;
 
 		this.url = '';
         let aux = window.location.href.split('/');

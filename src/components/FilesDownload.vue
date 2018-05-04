@@ -13,14 +13,16 @@
                     </label> 
 
                         
-                    <a   v-for="file in item.files"  class="list-group-item-action  list-group-item d-flex justify-content-between align-items-center  " :href="url+'/files/download/'+file.id" >
-                            <span class="container">
-                                <span class=" badge badge-primary badge-pill material-icons">cloud_download</span>
+                    <div   v-for="file in item.files"  class="list-group-item-action  list-group-item d-flex justify-content-between align-items-center  "  >
+                            <span class="file-list container">
+                                <a :href="url+'/files/download/'+file.id">
+                                    <span class=" badge badge-primary badge-pill material-icons">cloud_download</span>
+                                </a>
                                 {{ file.filename }}
                             </span>
                        <!-- <a >
                         </a>      --> 
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,7 +38,7 @@
 export default {
     data() {
         return {
-            url: '',
+            url: "",
             active: [true, false, false, false, false, false],
             active2: false,
             teste: "olá!",
@@ -44,17 +46,25 @@ export default {
         };
     },
     mounted: () => {
+        // function getBootstrapBreakpoint() {
+        //     let w =
+        //         window.innerWidth ||
+        //         document.documentElement.clientWidth ||
+        //         document.body.clientWidth;
+        //     return w < 768 ? "xs" : w < 992 ? "sm" : w < 1200 ? "md" : "lg";
+        // }
+        // console.log(getBootstrapBreakpoint());
         // componentHandler.upgradeAllRegistered();
     },
     created() {
-        this.url = '';
-        let aux = window.location.href.split('/');
+        this.url = "";
+        let aux = window.location.href.split("/");
         // console.log(aux);
-        let path = aux[2].split(':');
-        this.url = aux[0]+'//'+path[0]+':55555';
+        let path = aux[2].split(":");
+        this.url = aux[0] + "//" + path[0] + ":55555";
         // this.show();
         // console.log(this.url);
-        this.$http.get(this.url+"/files/list").then(
+        this.$http.get(this.url + "/files/list").then(
             response => {
                 // success callback
                 this.types = response.body;
@@ -71,9 +81,8 @@ export default {
         );
     },
     methods: {
-        show(){
+        show() {
             // console.log(this.$route);
-
         },
         changeTab(index) {
             console.log(index);
@@ -112,6 +121,10 @@ export default {
 };
 </script>
 <style>
+.file-list {
+    word-break: break-all;
+}
+
 .card {
     with: 100%;
 }
@@ -121,7 +134,7 @@ export default {
 .link_lista {
     text-decoration: none;
 }
-a :hover{
+a :hover {
     text-decoration: none;
 }
 
@@ -132,9 +145,7 @@ a :hover{
     color: blue;
 }
 
-
-.tab_link{
+.tab_link {
     text-transform: uppercase;
 }
-
 </style>
