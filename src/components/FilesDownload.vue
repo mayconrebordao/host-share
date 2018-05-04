@@ -13,7 +13,7 @@
                     </label> 
 
                         
-                    <div   v-for="file in item.files"  class="list-group-item-action  list-group-item d-flex justify-content-between align-items-center  "  >
+                    <div   v-for="file in item.files"  class="list-group-item-action list-group-item-ligth  list-group-item d-flex justify-content-between align-items-center  "  >
                             <span class="file-list container">
                                 <a :href="url+'/files/download/'+file.id">
                                     <span class=" badge badge-primary badge-pill material-icons">cloud_download</span>

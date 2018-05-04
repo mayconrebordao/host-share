@@ -1,49 +1,22 @@
 <template>
-    <div >
+    <body >
         <header class="pos-f-t">
-
-            <nav class="navbar   navbar-expand-lg navbar-dark bg-dark fixed-top ">
-
-                <router-link to="/" @click.native="closeMenu()" class="navbar-brand">Host Share</router-link>
-                <button id='togglerMenu' class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <router-link @click.native="closeMenu()" class="nav-link" to="/">
-                                Home<span class="sr-only">(current)</span>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link @click.native="closeMenu()" class="nav-link" to="/filesdownload">
-                                Downloads
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link @click.native="closeMenu()" class="nav-link" to="/filesupload">
-                                Uploads
-                            </router-link>
-                        </li>
-                    
-                    </ul>
-                </div>
-                
-            </nav>
+            <HeaderSite/>
 
         </header>
             <main  role="main" class="center-items container main_content">
                 <div class="row">
                     <router-view></router-view>
                 </div>
-            </main>   
-
-    
-    </div>
+            </main>
+        <FooterSite/>
+    </body>
 </template>
 
 <script>
 import Files from "@/components/FilesDownload";
+import HeaderSite from "@/components/HeaderSite";
+import FooterSite from "@/components/FooterSite";
 // require("../static/css/material.lime-orange.min.css");
 // require("material-design-lite/material.min.css");
 // require("material-design-lite/material.min.js");
@@ -58,9 +31,13 @@ export default {
     name: "App",
     components: {
         // Files
+        HeaderSite,
+        FooterSite
     },
     children: {
-        Files
+        Files,
+        HeaderSite,
+        FooterSite
     },
     mounted: function() {
         // componentHandler.upgradeAllRegistered();
@@ -87,7 +64,7 @@ export default {
             }
             // alert(i)
         },
-        closeMenu(){
+        closeMenu() {
             // $('#navbarNav').toggle('hide');
             // $('.navbar-collapse').collapse('hide');
             // alert('teste')
@@ -97,17 +74,19 @@ export default {
             //     // body
 
             // }, 500)
-            document.getElementById('togglerMenu').classList.add('collapsed');
-            document.getElementById('togglerMenu').setAttribute('aria-expanded','false');
-            document.getElementById('navbarNav').classList.remove('show');
+            document.getElementById("togglerMenu").classList.add("collapsed");
+            document
+                .getElementById("togglerMenu")
+                .setAttribute("aria-expanded", "false");
+            document.getElementById("navbarNav").classList.remove("show");
         }
     }
 };
 </script>
 
 <style >
-.main_content{
-    margin-top: 4rem!important;
+.main_content {
+    margin-top: 4rem !important;
 }
 .center-items {
     justify-content: center;
@@ -123,6 +102,27 @@ export default {
 .mdl-layout-title {
     text-decoration: none;
 }
+/* Footer responsivo  inicio*/
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: table;
+}
+
+.container {
+    height: auto;
+}
+
+.footer {
+    display: table-row;
+    height: 1px;
+}
+/* Footer responsivo fim*/
+
 /* #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
