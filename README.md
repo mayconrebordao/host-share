@@ -1,7 +1,6 @@
-# host-share
-<<<<<<< HEAD
-
-> Aplicação que subtituirá a aplicação em php que roda no apache2
+# Host Share
+Aplicação que subtituirá a aplicação em php que roda no apache2
+SPA para compartilhamento de arquivos usando API em NodeJS
 
 ## Build Setup
 
@@ -19,7 +18,3 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-=======
-SPA para compartilhamento de arquivos usando API em NodeJS
->>>>>>> 62fdc1ce3c25b2218da6bed3324b5ff3260243c2
