@@ -1,6 +1,5 @@
 # Host Share
-Aplicação que subtituirá a aplicação em php que roda no apache2
-SPA para compartilhamento de arquivos usando API em NodeJS
+Aplicação que subtituirá a aplicação em php que roda no apache2, SPA para compartilhamento de arquivos usando API em NodeJS
 
 ## Build Setup
 
