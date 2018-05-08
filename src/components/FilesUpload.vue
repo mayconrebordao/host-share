@@ -1,37 +1,37 @@
 <template>
-	<div class="container row center-items">
 
-		<div class="card">
+	<div class="container  center-items">
+		<div class="card container-fluid ">
 			<form id="up"  method="post" enctype="mult-part/form-data" >
 					
-				<div class="card-header">
+				<div class="card-header bg-primary text-light">
 					Upload de Arquivos
 				</div>
-				<div class="card-body bg-light">
+				<div class="card-body ">
 					<div class="card-text">
-						<p>
-							É possível fazer o upload de multiplos arquivos e de diversos tipos, limite máximo de 200 arquivos.
-						</p>
+					
+								<p>
+									{{msg}}
+								</p>
+								<input id="files" type="file" name="files" multiple class="btn btn-outline-dark container" >
+								<div id="p" class="progress" hidden="">
+									<div id="progress" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" ></div>
+								</div>
 
 					</div>
-					<input id="files" type="file" name="files" multiple class="btn btn-outline-dark container" >
-
-
-					<div id="p" class="progress" hidden="">
-						<div id="progress" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" ></div>
-					</div>	
+					
+					<div class="container">
+						<button id="btnsend" @click.prevent.stop="Upload()" type="submit" class="card-link btn-send float-right btn btn-success  ">ENVIAR <span class="badge badge-pill material-icons">cloud_upload</span></button>
+					</div>
 				</div>
-				<div class="card-footer">					
-					<button id="btnsend" @click.prevent.stop="Upload()" type="submit" class="card-link btn btn-success  ">ENVIAR <span class="badge badge-pill material-icons">cloud_upload</span></button>
+				<!-- <div class="card-body ">
 				</div>
+					<div class="card-footer"></div>					 -->
+			</form>
 					<div id="msg">
 						
 					</div>
-			</form>
-		</div>
-
-
-		
+		</div>		
 	</div>
 </template>
 
@@ -42,13 +42,22 @@ export default {
 
   data () {
 	return {
-		url: ''
+		url: '',
+		msg: 'É possível fazer o upload de multiplos arquivos e de diversos tipos, limite máximo de 200 arquivos por vez.'
 
 	}
   },
+  beforeRouteLeave(to, from, next) {
+        // called when the route that renders this component is about to
+        // be navigated away from.
+        // has access to `this` component instance.
+		console.log("change");
+		// alert('teste')
+		next()
+    },
   mouted(){
 
-		document.addEventListener('beforeunload', this.handler)	
+		// document.addEventListener('beforeunload', this.handler)	
   	// window.onbeforeunload = this.leaving;
   	// console.log(this.$route);
 	// document.getElementById('p').setAttribute('hidden', '');
@@ -56,10 +65,7 @@ export default {
   }
   ,
   methods:{
-  	handler: function (event){
-  		console.log(', ...args')
-  		alert('laave')
-  	},
+  	
   	leaving(){
   		alert('You leaving page')
   	},
@@ -83,13 +89,14 @@ export default {
 		let formdata = new FormData();
 		let files = document.getElementById("files");
 		if (files.files.length === 0) {
-			document.getElementById('msg').innerHTML+= '<div class="alert alert-warning alert-dismissible fade show" role="alert"> <strong>Nenhum</strong> arquivos selecionado. <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> ';
+			document.getElementById('msg').innerHTML+= '<div class="alert alert-warning alert-dismissible fade show" role="alert"> <strong>Error</strong> selecione algum arquivo para ser enviado antes de clicar em "enviar". <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> ';
 			setTimeout(function() {
 				// body
 				document.getElementById('msg').innerHTML = "";
 			},3000 );
 		}
 		else{
+			this.$emit('uploading', true)
 			document.getElementById('p').removeAttribute('hidden', '');
 			document.getElementById('btnsend').setAttribute('disabled','');
 
@@ -97,8 +104,8 @@ export default {
 				formdata.append('files', files.files[i]); 
 				// console.log(files.files[i]);
 			}
-			this.$http.post(this.url+'/files/upload', formdata,{async
-					progress(e) {
+			this.$http.post(this.url+'/files/upload', formdata,{
+				progress(e) {
 						if (e.lengthComputable) {
 							document.getElementById('progress').setAttribute('style', 'width: '+(e.loaded / e.total * 100)+'%;');
 							// document.getElementById('progress').style.width = ""+(e.loaded / e.total * 100)+'%;';
@@ -108,10 +115,12 @@ export default {
 							document.getElementById('progress').innerHTML=(e.loaded / e.total * 100).toFixed(2)+"%";
 							// console.log(e.loaded / e.total * 100);
 						}
-				  }}).then(ok => {
+				  }
+			} ).then(ok => {
 				if (ok) {
+					this.$emit('uploading',false)
 					setTimeout(function(args) {
-						
+					
 
 					document.getElementById('msg').innerHTML+= '<div class="alert alert-success alert-dismissible fade show" role="alert"> <strong>Arquivo(s)</strong> enviados com sucesso. <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> ';
 					 setTimeout(function(args) {
@@ -163,13 +172,16 @@ export default {
 			});
 		}
 
-	}
+	},
   }
 
 }
 </script>
 <style lang="css" scoped>
-
+.btn-send{
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
 
 .hide{
 	/* width:  */
@@ -181,8 +193,8 @@ export default {
 }
 
 .sen-btn{
-	padding-bottom: -30px;
-	margin-bottom: -10px;
+	/* padding-bottom: -30px;
+	margin-bottom: -10px; */
 }
 .file-icon{
 	border-top-left-radius: 50%;

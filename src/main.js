@@ -4,6 +4,9 @@ import Vue from "vue";
 import App from "./App";
 import router from "./router";
 import Vueresource from 'vue-resource';
+import validator from "validator";
+
+
 // import '../static/css/fontawesome-all.min.css'
 import '../node_modules/@fortawesome/fontawesome-free-webfonts/css/fontawesome.css'
 import '../node_modules/@fortawesome/fontawesome-free-webfonts/css/fa-solid.css'
@@ -18,6 +21,8 @@ import "../node_modules/material-icons/iconfont/material-icons.css"
 import "../node_modules/popper.js/dist/esm/popper.min.js"
 import "../node_modules/jquery/dist/jquery.min.js"
 
+Vue.prototype.$validator = validator
+Vue.prototype.$loged = false
 
 Vue.use(Vueresource);
 // import material from "../";
@@ -25,6 +30,8 @@ Vue.use(Vueresource);
 // require("material-design-lite");
 
 Vue.config.productionTip = false;
+
+
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,62 +1,75 @@
 <template>
-  <nav class="navbar    navbar-expand-sm navbar-dark bg-dark fixed-top ">
-    <router-link to="/" @click.native="closeMenu()" class=" navbar-brand">Host Share</router-link>
-    <button id='togglerMenu' class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar    navbar-expand-sm navbar-dark bg-dark fixed-top ">
+    <router-link to="/" @click.native="closeMenu()" class=" navbar-brand text-primary">Host Share</router-link>
+    <button id='togglerMenu' @click.native="showMenu()" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse justify-content-end navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <router-link @click.native="closeMenu()" class="nav-link" to="/">
-                    <i class="fas fa-home    "></i> Home
+            <li class="nav-item text-primary" v-for="item in items" :key="item.name" v-if="item.show">
+                <router-link @click.native="closeMenu()" class="nav-link text-primary" :to="item.link">
+                    <i :class="item.icon"></i> {{ item.name }}
                 </router-link>
             </li>
-            <li class="nav-item">
-                <router-link @click.native="closeMenu()" class="nav-link" to="/filesdownload">
-                   <i class="fas fa-cloud-download-alt    "></i> Downloads
-                </router-link>
-            </li>
-            <li class="nav-item">
-                <router-link @click.native="closeMenu()" class="nav-link" to="/filesupload">
-                   <i class="fas fa-cloud-upload-alt    "></i> Uploads
-                </router-link>
-            </li>
-        
+            <!-- <li @click="login()" class="nav-item text-primary" >
+                <a  class="nav-link text-primary">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    Login
+                </a>
+               
+            </li> -->
         </ul>
     </div>
-    
 </nav>
-
 </template>
+
 <script>
+// import HeaderItems from "@/components/HeaderItem";
 export default {
     data() {
-        return {};
+        return {
+            items: [
+                {
+                    name: "Home",
+                    link: "/",
+                    icon: "fas fa-home",
+                    show: true
+                },
+                {
+                    name: "Downlaods",
+                    link: "/files/download",
+                    icon: "fas fa-cloud-download-alt",
+                    show: true
+                },
+                {
+                    name: "Uploads",
+                    link: "/files/upload",
+                    icon: "fas fa-cloud-upload-alt",
+                    show: true
+                },
+                {
+                    name: "Delete",
+                    link: "/files/delete",
+                    icon: "fa fa-trash",
+                    show: false
+                }
+            ]
+        };
+    },
+    components: {},
+    props: ["loged"],
+    mounted() {
+        this.items[3].show = this.loged;
     },
     methods: {
-        closeSideMenu() {
-            document
-                .getElementById("second_menu")
-                .classList.remove("is-visible");
-            document
-                .getElementById("second_menu")
-                .setAttribute("aria-data", "false");
-            for (
-                var i = 0;
-                i <
-                document.getElementsByClassName("mdl-layout__obfuscator")
-                    .length;
-                i++
-            ) {
-                document
-                    .getElementsByClassName("mdl-layout__obfuscator")
-                    [i].classList.remove("is-visible");
-                // alert(document.getElementsByClassName('mdl-layout__obfuscator')[i]);
-            }
-            // alert(i)
+        login() {
+            this.$emit("show-login");
+            this.closeMenu();
         },
         closeMenu() {
+            // console.log("close menu");
+
             // $('#navbarNav').toggle('hide');
             // $('.navbar-collapse').collapse('hide');
             // alert('teste')
@@ -71,10 +84,21 @@ export default {
                 .getElementById("togglerMenu")
                 .setAttribute("aria-expanded", "false");
             document.getElementById("navbarNav").classList.remove("show");
+        },
+        showMenu() {
+            document
+                .getElementById("togglerMenu")
+                .setAttribute("aria-expanded", "true");
+            document
+                .getElementById("togglerMenu")
+                .classList.remove("collapsed");
+            document.getElementById("navbarNav").classList.add("show");
+            // console.log("show menu");
         }
     }
 };
 </script>
+
 <style>
 
 </style>
